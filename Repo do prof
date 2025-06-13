@@ -1,0 +1,88 @@
+<html>
+
+<head>
+    <style>
+        #game {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+        button {
+            height: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="game"></div>
+    <script>
+        const jogadas = [
+            '', '', '',
+            '', '', '',
+            '', '', ''
+        ]
+        let jogadorDaVez = "X";
+        let totalDeJogadas = 0;
+
+        function verificaJogada(posicao1, posicao2, posicao3) {
+            if (jogadas[posicao1] == "" ||
+                jogadas[posicao2] == "" ||
+                jogadas[posicao3] == ""
+            )
+                return false
+            return (
+                jogadas[posicao1] == jogadas[posicao2] &&
+                jogadas[posicao2] == jogadas[posicao3]
+            );
+        }
+
+        function verificaGanhador() {
+            if (
+                //linhas
+                verificaJogada(0, 1, 2) ||
+                verificaJogada(3, 4, 5) ||
+                verificaJogada(6, 7, 8) ||
+                //colunas
+                verificaJogada(0, 3, 6) ||
+                verificaJogada(1, 4, 7) ||
+                verificaJogada(2, 5, 8) ||
+                //diagonais
+                verificaJogada(0, 4, 8) ||
+                verificaJogada(2, 4, 6)
+            )
+                alert("fim de jogo")
+
+            if (totalDeJogadas == 9)
+                alert("Deu velha")
+        }
+
+        function fazerJogada(posicao) {
+            if (jogadas[posicao] == "") {
+                jogadas[posicao] = jogadorDaVez;
+
+                if (jogadorDaVez == "X")
+                    jogadorDaVez = "O"
+                else
+                    jogadorDaVez = "X"
+
+                totalDeJogadas++;
+                verificaGanhador();
+                desenhaBotoes();
+            }
+        }
+        function desenhaBotoes() {
+            const game = document.querySelector("#game")
+            game.innerHTML = "";
+            for (let i = 0; i < 9; i++) {
+                game.innerHTML += `
+                <button onclick="fazerJogada(${i})">
+                    ${jogadas[i]}
+                </button> `
+            }
+        }
+
+        desenhaBotoes();
+    </script>
+</body>
+
+</html>
