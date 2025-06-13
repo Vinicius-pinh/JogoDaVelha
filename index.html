@@ -5,6 +5,9 @@
             display: grid;
             grid-template-columns: 1fr 1fr 1fr;
         }
+        button {
+            height: 50;
+        }
 
     </style>
 
@@ -19,6 +22,34 @@
         '','','',
         '','',''
     ]
+    function verificaJogada(posicao1, posicao2, posicao3){
+        if (
+            jogadas[posicao1] == "" ||
+            jogadas[posicao2] == "" ||
+            jogadas[posicao3] == ""
+        )
+    return false
+
+    return(
+        jogadas[posicao1] == jogadas[posicao2] &&
+        jogadas[posicao2] == jogadas[posicao3]
+    );
+    }
+
+    function verificaGanhador(){
+        if (
+            verificaJogada(0, 1, 2) ||
+            verificaJogada(3, 4, 5) ||
+            verificaJogada(6, 7, 8) ||
+            verificaJogada(0, 3, 6) ||
+            verificaJogada(1, 4, 7) ||
+            verificaJogada(2, 5, 8) ||
+            verificaJogada(6, 7, 8) ||
+            verificaJogada(0, 4, 8) ||
+            verificaJogada(2, 4, 6)            
+        )
+        alert("fim de jogo")
+    }
     let rodadas=0;
 
     function fazerJogada(posicao){
@@ -29,9 +60,10 @@
             jogadas[posicao] = "O";
         }
         desenhaBotoes();
+        verificaGanhador();
         rodadas++
-
     }
+
     function desenhaBotoes(){
     const game = document.querySelector("#game")
     game.innerHTML = "";
