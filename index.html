@@ -1,0 +1,52 @@
+<html>
+<head>
+    <style>
+        #game {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+        }
+
+    </style>
+
+</head>
+
+<body>
+<div id="game"></div>
+
+<script>
+    const jogadas = [
+        '','','',
+        '','','',
+        '','',''
+    ]
+    let rodadas=0;
+
+    function fazerJogada(posicao){
+        if (rodadas % 2 == 0){
+            jogadas[posicao] = "X";
+        }
+        else{
+            jogadas[posicao] = "O";
+        }
+        desenhaBotoes();
+        rodadas++
+
+    }
+    function desenhaBotoes(){
+    const game = document.querySelector("#game")
+    game.innerHTML = "";
+    for (let i = 0; i < 9; i++){
+       
+        game.innerHTML += `
+        <button onclick="fazerJogada(${i})">
+            ${jogadas[i]}
+            </button>
+               `
+    }
+}
+desenhaBotoes()
+</script>
+
+</body>
+
+</html>
